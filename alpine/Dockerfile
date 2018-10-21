@@ -23,8 +23,13 @@ RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/ruby
 ADD src/docker-entrypoint.sh /docker-entrypoint.sh
 ADD src/templates /templates
 
+RUN mkdir -p /var/run/nginx && \
+    chgrp -R 0   /opt/postal && \
+    chmod -R g=u /opt/postal
+
 ## Expose
 EXPOSE 5000
+
 
 ## Startup
 # ENV RUBYOPT --jit
